@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>  
+  <head>
+    <title>WMKO Exposure Time Calculator</title>
+    <style type='text/css'>{{get_resource_as_string('./static/etc.css')}}</style>
+  </head>
+  <body>
+        <!-- print webpage header -->
+  	<h1>WMKO Exposure Time Calculator</h1>
+  	<!-- initialize drop-down menu form -->
+	<form action="." method="get">
+
+		<!-- select instrument for database query -->
+		<select name="instrument">
+		{% for instr in ['','DEIMOS','ESI','HIRES','KCWI','LRIS','MOSFIRE','NIRC2','NIRES','NIRSPEC','OSIRIS'] %}
+			{% if instr == '' or instr in allowed %}
+			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
+			{% endif %}
+		{% endfor %}
+		</select>
+		<!-- initialize submit button to reload page -->
+		<input type="submit" value="Submit">
+	</form>
+	
+	<!-- ############## NO INSTRUMENT SELECTED ############## -->
+	<h4>
+	Select an instrument above.
+	</h4>
+
+	
+  </body>
+</html>

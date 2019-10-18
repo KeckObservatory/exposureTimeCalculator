@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>  
+  <head>
+  	<!-- print page title -->
+    <title>WMKO Exposure Time Calculator</title>
+  </head>
+  <body>
+        <!-- print webpage header -->
+  	<h1>WMKO Exposure Time Calculator</h1>
+  	<!-- initialize drop-down menu form -->
+	<form action="." method="post">
+		<!-- select instrument for database query -->
+		<select name="instrument">
+		{% for instr in ['','DEIMOS','ESI','HIRES','KCWI','LRIS','MOSFIRE','NIRC2','NIRES','NIRSPEC','OSIRIS'] %}
+			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
+		{% endfor %}
+		</select>
+		<!-- initialize submit button to reload page -->
+		<input type="submit" value="Submit">
+	</form>
+	
+	<h3>HIRES Selected</h3>
+	<form action="." method="post">
+	<table align="center"><tr><td>
+	<table align="top left" style='margin:15px;'>
+		<tr>
+			<th> Slit </th>
+			<th> CCD </th>
+			<th> Exposure </th>
+			<th> Object </th>
+		</tr>
+		<tr>
+			<td>Slit Width<br><select name="slitwidth">
+			{% for slitparam in ['1.15 arcsec C5','0.40 arcsec E4','0.57 arcsec B2','0.86 arcsec B5','0.80 arcsec E5','1.72 arcsec D3'] %}
+			<option value={{slitparam}} {% if slitparam == slitwidth %} selected {% endif %}>{{slitparam}}</option>
+			{% endfor %}
+			</select></td>
+			<td>Binning (Spatial x Spectral)<br><select name="binning">
+			{% for binparam in ['1x1 pixels','2x1 pixels','2x2 pixels','3x1 pixels'] %}
+			<option value={{binparam}} {% if binparam == binning %} selected {% endif %}>{{binparam}}</option>
+			{% endfor %}
+			</select></td>
+			<td>Exposure Time (sec)<br><input name='exptime' id='exptime' value={{exptime}}></td>
+			<td>Magnitude<br><input name='magnitude' id='magnitude' value={{magnitude}}>
+			<select name="ffilter">
+			{% for fparam in ['r','g','i','u','z','B','V','R','I'] %}
+			<option value={{fparam}} {% if fparam == ffilter %} selected {% endif %}>{{fparam}}</option>
+			{% endfor %}
+			</select>
+			<select name="mtype">
+			{% for mparam in ['AB','Vega'] %}
+			<option value={{mparam}} {% if mparam == mtype %} selected {% endif %}>{{mparam}}</option>
+			{% endfor %}
+			</select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td>Seeing (arcsec)<br><input name='seeing' id='seeing' value={{seeing}}></td>
+			<td>Template<br><select name="template">
+			{% for tempparam in ['A0V','A5V','B5V','E','F5V','flat','G5V','K0V','K5V','M5V','O5V','Orion',
+			'PNe','QSO','S0','Sa','Sb','Sc','SNe Type 1a 10 days','starburst1'] %}
+			<option value={{tempparam}} {% if tempparam == template %} selected {% endif %}>{{tempparam}}</option>
+			{% endfor %}
+			</select></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td>Airmass<br><input name='airmass' id='airmass' value={{airmass}}></td>
+			<td>Redshift<br><input name='redshift' id='redshift' value={{redshift}}></td>
+		</tr>
+	</table>
+
+	<input type="submit" name="calculate" id="calculate" value="Calculate">
+	<input type="hidden" name="instrument" id="instrument" value={{instrument}}>
+	<input type="hidden" name="action" id="action" value="Calculate">
+	</form>
+	</td>
+	{% if calculate %}
+		<td style='background:rgba(255,255,255,0.3)'>
+		<table align="top right" style='margin:15px;float:center'>
+		<tr>
+			<td style='font-weight:bold'> Signal to Noise Ratio </td>
+			<td>{{snr}}</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Total Signal </td>
+			<td>{{tot_signal}} DN</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Aperature Area </td>
+			<td>{{aperature_area}} pix</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Total Noise </td>
+			<td>{{tot_noise}} DN</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Background per Frame </td>
+			<td>{{bkg_per_frame}} DN</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Efficiency </td>
+			<td>{{efficiency}}%</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Total Integration Time </td>
+			<td>{{tot_int}} sec</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Total Elapsed Time </td>
+			<td>{{tot_elaptime}} sec</td>
+		</tr>
+		</table>
+		</td>
+	{% endif %}
+	</tr></table>
+
+	<!-- reference CSS -->
+    <link rel="stylesheet" href="../static/etc.css">
+	
+  </body>
+</html>

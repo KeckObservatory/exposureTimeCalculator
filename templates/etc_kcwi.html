@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>  
+  <head>
+  	<!-- print page title -->
+    <title>WMKO Exposure Time Calculator</title>
+    <!-- reference CSS -->
+    <style type='text/css'>{{get_resource_as_string('./static/etc.css')}}</style>
+  	<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.7.min.css"
+    rel="stylesheet" type="text/css">
+	<link
+	    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.7.min.css"
+	    rel="stylesheet" type="text/css">
+	<script src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.7.min.js"></script>
+	<script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.7.min.js"></script>
+	<script src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.7.min.js"></script>
+  </head>
+  <body>
+        <!-- print webpage header -->
+  	<h1>WMKO Exposure Time Calculator</h1>
+  	<!-- initialize drop-down menu form -->
+	<form action="." method="post">
+		<!-- select instrument for database query -->
+		<select name="instrument">
+		{% for instr in allowed %}
+			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
+		{% endfor %}
+		</select>
+		<!-- initialize submit button to reload page -->
+		<input type="submit" value="Submit">
+	</form>
+	
+	<h3>KCWI Selected</h3>
+	<form action="." method="post">
+	<table align="center"><tr><td>
+	<table align="top left" style='margin:15px;'>
+		<tr>
+			<th> Required </th>
+			<th> Optional </th>
+		</tr>
+		<tr>
+			<td>Slicer<br><select name="slicer">
+			{% for sliceopt in ['Small','Medium','Large'] %}
+			<option value={{sliceopt}} {% if sliceopt == slicer %} selected {% endif %}>{{sliceopt}}</option>
+			{% endfor %}
+			</select></td>
+			<td>Magnitude AB<br><input name='magAB' id='magAB' value={{magAB}}></td>
+			</td>
+		</tr>
+		<tr>
+			<td>Grating<br><select name="grating">
+			{% for gratopt in ['BH1','BH2','BH3','BL','BM'] %}
+			<option value={{gratopt}} {% if gratopt == grating %} selected {% endif %}>{{gratopt}}</option>
+			{% endfor %}
+			</select></td>
+			<td>Flux<br><input name='flux' id='flux' value={{flux}}></td>
+		</tr>
+		<tr>
+			<td>Grating Wavelength (Å)<br><input name='gratwave' id='gratwave' value={{gratwave}}></td>
+			<td># Frames<br><input name='nframes' id='nframes' value={{nframes}}></td>
+		</tr>
+		<tr>
+			<td>Seeing (arcsec)<br><input name='seeing' id='seeing' value={{seeing}}></td>
+			<td>CCD Speed<br><select name="ccdspeed">
+			{% for speedopt in ['','SLOW','FAST'] %}
+			<option value={{speedopt}} {% if speedopt == ccdspeed %} selected {% endif %}>{{speedopt}}</option>
+			{% endfor %}
+			</select></td>
+		</tr>
+		<tr>
+			<td>Exposure Time (sec)<br><input name='exptime' id='exptime' value={{exptime}}></td>
+			<td>Spatial Binning [dx,dy] (arcsec)<br><input name='spat_binx' id='spat_binx' value={{spat_binx}}><input name='spat_biny' id='spat_biny' value={{spat_biny}}></td>
+		</tr>
+		<tr>
+			<td>CCD Binning<br><select name="ccdbin">
+			{% for binopt in ['1x1','2x2'] %}
+			<option value={{binopt}} {% if binopt == ccdbin %} selected {% endif %}>{{binopt}}</option>
+			{% endfor %}
+			</select></td>
+			<td>Spectral Binning (Å)<br><input name='spec_bin' id='spec_bin' value={{spec_bin}}></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Surface Brightness (mag*arcsec^2)<br><input name='surf_bright' id='surf_bright' value={{surf_bright}}></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Emission Line Width (Å)<br><input name='emline_w' id='emline_w' value={{emline_w}}></td>
+			
+	</table>
+
+	<input type="submit" name="calculate" id="calculate" value="Calculate">
+	<input type="hidden" name="instrument" id="instrument" value={{instrument}}>
+	<input type="hidden" name="action" id="action" value="Calculate">
+	</form>
+	</td>
+	{% if calculate %}
+		<td style='background:rgba(255,255,255,0.3)'>
+		<table align="top right" style='margin:15px;float:center'>
+		<tr>
+			<th style='font-weight:bold' colspan='2'> Signal to Noise Ratio </th>
+		</tr>
+		<tr>
+			<td>{{script_snr|safe}}{{div_snr|safe}}</td>
+			<td>{{script_obj|safe}}{{div_obj|safe}}</td>
+		</tr>
+		<tr>
+			<td>{{script_sky|safe}}{{div_sky|safe}}</td>
+			<td>{{script_rn|safe}}{{div_rn|safe}}</td>
+		</tr>
+		<tr>
+			<td>{{script_os|safe}}{{div_os|safe}}</td>
+			<td>{{script_flux|safe}}{{div_flux|safe}}</td>
+		</tr>
+
+		</table>
+	{% endif %}
+	</tr></table>
+
+	<!-- reference CSS -->
+<!--    <link rel="stylesheet" href="../static/etc.css"> -->
+	
+  </body>
+</html>
