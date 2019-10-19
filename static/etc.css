@@ -1,0 +1,22 @@
+/*set background image to Keck, white verdana font, center alignment*/
+body            {font-family:verdana;background-size:cover;background-position: 0px -100px; background-image: url(https://farm2.static.flickr.com/1943/44848155794_176e266ebe_b.jpg); background-size: 100%; background-repeat: no-repeat; background-color: black; color: white; text-align:center;}
+/*make header white*/
+h1				{color:white;font-size:36pt;}
+/*make links lime green*/
+a 				{color: #16c616;}
+/*collapse white table border, 9pt font*/
+table, th, td 	{border: 1px solid white; border-collapse: collapse;text-align: center;font-size: 12pt;}
+/*make table header teal with opacity = 0.9*/
+th				{background:rgba(80,175,169,0.9);}
+/*make cell background black with opacity = 0.5*/
+td				{background:rgba(0,0,0,0.5);}
+/*center table in middle of page*/
+table.center 	{margin-left:auto; margin-right:auto;}
+/*make 'done' cells forest green with opacity = 0.8*/
+td.done         {background:rgba(33,122,21,0.8);}
+td.DONE         {background:rgba(33,122,21,0.8);}
+/*make 'error' and 'failed' cells red with opacity = 0.8*/
+td.ERROR		{background:rgba(229,71,25,0.8);}
+td.Failed		{background:rgba(229,71,25,0.8);}
+td.failed		{background:rgba(229,71,25,0.8);}
+td.FAILED		{background:rgba(229,71,25,0.8);}

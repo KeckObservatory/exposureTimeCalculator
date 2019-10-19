@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>  
+  <head>
+  	<!-- print page title -->
+    <title>WMKO Exposure Time Calculator</title>
+	<!-- reference CSS -->
+    <style type='text/css'>{{get_resource_as_string('./static/etc.css')}}</style>
+  </head>
+  <body>
+        <!-- print webpage header -->
+  	<h1>WMKO Exposure Time Calculator</h1>
+  	<!-- initialize drop-down menu form -->
+	<form action="." method="post">
+
+		<!-- select instrument for database query -->
+		<select name="instrument">
+		{% for instr in allowed %}
+			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
+		{% endfor %}
+		</select>
+		<!-- initialize submit button to reload page -->
+		<input type="submit" value="Submit">
+	</form>
+
+	<h3>NIRC2 Selected</h3>
+	<form action="." method="post">
+	<table align="center"><tr><td>
+	<table align="top left" style='margin:15px;'>
+		<tr>
+			<td style='font-weight:bold'> Magnitude </td>
+			<td><input name='magnitude' id='magnitude' value={{magnitude}}></td>
+			<td style='font-weight:bold'> Camera </td>
+			<td>
+				<input type='radio' name='camera' id='camera' value='Narrow' 
+				{% if camera == 'Narrow' %} checked {% endif %}>Narrow
+				<input type='radio' name='camera' id='camera' value='Wide'
+				{% if camera == 'Wide' %} checked {% endif %}>Wide
+			</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Time per Exposure </td>
+			<td><input name='tpe' id='tpe' value={{tpe}}></td>
+			<td style='font-weight:bold'> Filter </td>
+			<td>
+				<input type='radio' name='filter' id='filter' value='J' {% if filter == 'J' %} checked {% endif %}>J
+				<input type='radio' name='filter' id='filter' value='H' {% if filter == 'H' %} checked {% endif %}>H
+				<input type='radio' name='filter' id='filter' value='K' {% if filter == 'K' %} checked {% endif %}>K
+				<input type='radio' name='filter' id='filter' value='Kp' {% if filter == 'Kp' %} checked {% endif %}>Kp
+				<input type='radio' name='filter' id='filter' value='Lp' {% if filter == 'Lp' %} checked {% endif %}>Lp
+				<input type='radio' name='filter' id='filter' value='Ms' {% if filter == 'Ms' %} checked {% endif %}>Ms
+			</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Coadds </td>
+			<td><input name='coadds' id='coadds' value={{coadds}}></td>
+			<td style='font-weight:bold'> # Reads </td>
+			<td>
+				<input type='radio' name='nreads' id='nreads' value=2 {% if nreads == 2 %} checked {% endif %}>2 (CDS)
+				<input type='radio' name='nreads' id='nreads' value=8 {% if nreads == 8 %} checked {% endif %}>8
+				<input type='radio' name='nreads' id='nreads' value=16 {% if nreads == 16 %} checked {% endif %}>16
+				<input type='radio' name='nreads' id='nreads' value=32 {% if nreads == 32 %} checked {% endif %}>32
+				<input type='radio' name='nreads' id='nreads' value=64 {% if nreads == 64 %} checked {% endif %}>64
+				<input type='radio' name='nreads' id='nreads' value=128 {% if nreads == 128 %} checked {% endif %}>128 (MCDS)
+			</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> # Dithers </td>
+			<td><input name='ndithers' id='ndithers' value={{ndithers}}></td>
+			<td style='font-weight:bold'> Array Window Size </td>
+			<td>
+				<input type='radio' name='window' id='window' value=1024 {% if window == 1024 %} checked {% endif %}>1024&sup2;
+				<input type='radio' name='window' id='window' value=512 {% if window == 512 %} checked {% endif %}>512&sup2;
+				<input type='radio' name='window' id='window' value=256 {% if window == 256 %} checked {% endif %}>256&sup2;
+			</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Repeats per Dither </td>
+			<td><input name='rpd' id='rpd' value={{rpd}}></td>
+			<td style='font-weight:bold'> AO Mode </td>
+			<td>
+				<input type='radio' name='ao' id='ao' value='LGS' {% if ao == 'LGS' %} checked {% endif %}>LGS
+				<input type='radio' name='ao' id='ao' value='NGS' {% if ao == 'NGS' %} checked {% endif %}>NGS
+			</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Strehl </td>
+			<td><input name='strehl' id='strehl' value={{strehl}}></td>
+			<td style='font-weight:bold'> Laser Motion Control </td>
+			<td>
+				<input type='radio' name='laser' id='laser' value='Fixed to Center'
+				{% if laser == 'Fixed to Center' %} checked {% endif %}>Fixed to Center
+				<input type='radio' name='laser' id='laser' value='Dither to Object'
+				{% if laser == 'Dither to Object' %} checked {% endif %}>Dither to Object
+			</td>
+		</tr>
+	</table>
+
+	<input type="submit" name="calculate" id="calculate" value="Calculate">
+	<input type="hidden" name="instrument" id="instrument" value={{instrument}}>
+	<input type="hidden" name="action" id="action" value="Calculate">
+	</form>
+	</td>
+	{% if calculate %}
+		<td style='background:rgba(255,255,255,0.3)'>
+		<table align="top right" style='margin:15px;float:center'>
+		<tr>
+			<td style='font-weight:bold'> Signal to Noise Ratio </td>
+			<td>{{snr}}</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Total Signal </td>
+			<td>{{tot_signal}} DN</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Aperature Area </td>
+			<td>{{aperature_area}} pix</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Total Noise </td>
+			<td>{{tot_noise}} DN</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Background per Frame </td>
+			<td>{{bkg_per_frame}} DN</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Efficiency </td>
+			<td>{{efficiency}}%</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Total Integration Time </td>
+			<td>{{tot_int}} sec</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold'> Total Elapsed Time </td>
+			<td>{{tot_elaptime}} sec</td>
+		</tr>
+		</table>
+		</td>
+	{% endif %}
+	</tr></table>
+
+	
+  </body>
+</html>
