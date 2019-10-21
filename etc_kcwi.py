@@ -160,7 +160,7 @@ def do_calc(slicer,grating,gratwave,seeing,exptime,ccdbin,
 
 	#if spatial bin keyword set
 	print('spatbin',type(spat_bin[0]))
-	if spat_bin != ['','']:
+	if not isinstance(spat_bin[0],str) and not isinstance(spat_bin[1],str):
 		nslices = spat_bin[1]/arcsec_per_slice
 		snr_spatial_bin = spat_bin[0]*spat_bin[1]
 	pixels_spat_bin = pixels_per_arcsec*nslices

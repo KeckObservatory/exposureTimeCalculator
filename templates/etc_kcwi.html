@@ -66,7 +66,7 @@
 		</tr>
 		<tr>
 			<td>Exposure Time (sec)<br><input name='exptime' id='exptime' value={{exptime}}></td>
-			<td>Spatial Binning [dx,dy] (arcsec)<br><input name='spat_binx' id='spat_binx' value={{spat_binx}}><input name='spat_biny' id='spat_biny' value={{spat_biny}}></td>
+			<td>Spatial Binning [dx,dy] (arcsec)<br><input name='spat_binx' id='spat_binx' {% if spat_binx == '' %} value='None' {% else %} value={{spat_binx}} {% endif %}><input name='spat_biny' id='spat_biny' {% if spat_biny == '' %} value='None' {% else %} value={{spat_biny}} {% endif %}></td>
 		</tr>
 		<tr>
 			<td>CCD Binning<br><select name="ccdbin">
@@ -78,7 +78,7 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td>Surface Brightness (mag*arcsec^2)<br><input name='surf_bright' id='surf_bright' value={{surf_bright}}></td>
+			<td>Surface Brightness (mag*arcsec<sup>2</sup>)<br><input name='surf_bright' id='surf_bright' value={{surf_bright}}></td>
 		</tr>
 		<tr>
 			<td></td>

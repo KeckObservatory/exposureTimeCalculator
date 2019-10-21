@@ -19,12 +19,13 @@ def instr_calc(allowed):
     ccdspeed = request.form.get("ccdspeed",None)
     spat_binx = request.form.get("spat_binx",None)
     spat_biny = request.form.get("spat_biny",None)
-    print(spat_binx,spat_biny)
+    print(spat_binx)
     spat_bin = [spat_binx,spat_biny]
     spec_bin = request.form.get("spec_bin",None)
     surf_bright = request.form.get("surf_bright",None)
     emline_w = request.form.get("emline_w",None)
     calculate = request.form.get("calculate")
+    print('FLUX',flux)
     if calculate:
         gratwave = float(gratwave)
         seeing = float(seeing)
@@ -34,11 +35,18 @@ def instr_calc(allowed):
         print(nframes,type(nframes))
         if nframes != 'None':
           nframes = float(nframes)
-        if (spat_binx != 'None' and spat_biny != 'None') and (spat_binx != None and spat_biny != None) and (spat_binx != '' and spat_biny != ''):
+        try:
           spat_binx = float(spat_binx)
           spat_biny = float(spat_biny)
+          print('floating spatbin')
+        except:
+         	pass
         spat_bin = [spat_binx,spat_biny]
         print(spat_bin,'a')
+        # if spat_binx == '':
+        # 	spat_binx = 'None'
+        # if spat_biny == '':
+        # 	spat_biny = 'None'
         if flux != 'None':
           flux = float(flux)
         if spec_bin != 'None':
@@ -67,5 +75,5 @@ def instr_calc(allowed):
     return render_template('etc_kcwi.html',instrument=instr,slicer=slicer,grating=grating,
                            gratwave=gratwave,seeing=seeing,exptime=exptime,ccdbin=ccdbin,
                            magAB=magAB,flux=flux,nframes=nframes,ccdspeed=ccdspeed,
-                           spat_bin=spat_bin,spec_bin=spec_bin,surf_bright=surf_bright,
+                           spat_binx=spat_binx,spat_biny=spat_biny,spec_bin=spec_bin,surf_bright=surf_bright,
                            emline_w=emline_w,calculate=calculate,allowed=allowed)
