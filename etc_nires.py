@@ -25,22 +25,23 @@ def do_calc(src_type,mag_src, obs_wave, exp_time, coadds, dither, dither_repeat,
 	slit_lenth = 18.0 #arcsec
 	print(src_type)
 	if src_type == "PointSource":
-	    s2n=calculate_nires_s2n_pointsource(mag_src, obs_wave, exp_time, coadds, dither, dither_repeat, seeing, num_reads)
-	    print ("S/N = %f" % s2n)
-	    
+		s2n=calculate_nires_s2n_pointsource(mag_src, obs_wave, exp_time, coadds, dither, dither_repeat, seeing, num_reads)
+		print ("S/N = %f" % s2n)
+		
 	elif src_type == "qso":
-	    s2n=calculate_nires_s2n_qso(src_type, redshift, obs_wave, exp_time, coadds, dither, dither_repeat, seeing, num_reads)
-	    print ("S/N = %f" % s2n)
+		s2n=calculate_nires_s2n_qso(src_type, redshift, obs_wave, exp_time, coadds, dither, dither_repeat, seeing, num_reads)
+		print ("S/N = %f" % s2n)
+	elif src_type == "sy1":
+		s2n=calculate_nires_s2n_qso(src_type, redshift, obs_wave, exp_time, coadds, dither, dither_repeat, seeing, num_reads)
+		print ("S/N = %f" % s2n)
+
+	elif src_type == "sy2":
+		s2n=calculate_nires_s2n_qso(src_type, redshift, obs_wave, exp_time, coadds, dither, dither_repeat, seeing, num_reads)
+		print ("S/N = %f" % s2n)
+
 	else:
 		s2n = 'N/A'
 	return s2n
-#elif src_type == "sy1":
-#    s2n=nires_s2n_qso(src_type, redshift, obs_wave, exp_time, coadds, dither, dither_repeat, seeing, num_reads)
-#    print ("S/N = %f" % s2n)
-    
-#elif src_type == "sy2":
-#    s2n=nires_s2n_qso(src_type, redshift, obs_wave, exp_time, coadds, dither, dither_repeat, seeing, num_reads)
-#    print ("S/N = %f" % s2n)
     
 #elif src_type == "BlackBody":
 #    s2n=nires_s2n_BlackBody(teff, redshift, obs_wave, exp_time, coadds, dither, dither_repeat, seeing, num_reads)

@@ -25,6 +25,10 @@ def instr_calc(allowed):
           src_tcalc = "PointSource"
         elif src_type == "QSO":
           src_tcalc = "qso"
+        elif src_type == "Seyfert1":
+          src_tcalc = "sy1"
+        elif src_type == "Seyfert2":
+          src_tcalc = "sy2"
 
         redshift = int(redshift)
         seeing = float(seeing)
