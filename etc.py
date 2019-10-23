@@ -21,6 +21,6 @@ def etcgui():
 
 if __name__ == '__main__':
     host = '0.0.0.0'
-    port = 50008
+    port = 50009
     debug = True
     app.run(host=host,port=port,debug=debug)
