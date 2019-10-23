@@ -8,31 +8,25 @@ from scipy.interpolate import interp1d
 import json
 import sys
 
+global datadir
+datadir = './datafiles/kcwi/'
+
 def wpA(flux):
 	#get wavelength and photons/Angstrom
 	w = np.arange(3000.0,6000.0,1.0)
 	pA = flux/(2.0*10**-8/w) #for linear f power law
-	#print("flux",flux)
-	#print("2-8.0/w",2.0*10**-8/w)
-	#print("w/gratwave",w/grat_wave)
-	#print("flamindex",flamindex)
 	return w,pA
 
 def obj_cts(w,pA,grating,exptime):
-	#get object counts?
+	#get object counts
 	A_geo = np.pi/4.0*(1000.0)**2
-	#print("A_geo",A_geo)
 	eff = get_params(w,grating)
 	cts = eff*A_geo*exptime*pA
-	#print("EFF:",eff[1500])
-	#print("EXPTIME:",exptime)
-	#print("PHOTONS:",pA[100])
-	#print("CTS:",cts[1500])
 
 	return cts
 
 def sky_cts(w,grating,exptime,airmass=None,area=None):
-	#get sky counts?
+	#get sky counts
 	if not airmass:
 		airmass = 1.2
 	if not area:
@@ -47,11 +41,11 @@ def sky_cts(w,grating,exptime,airmass=None,area=None):
 
 def sky_mk(w):
 	#load dat file array
-	data = np.loadtxt('mk_sky.dat',skiprows=14)
+	data = np.loadtxt(datadir+'mk_sky.dat',skiprows=14)
 	ws = data[:,0]
 	fs = data[:,1]
 	#open fits file
-	file = fits.open('lris_esi_skyspec_fnu_uJy.fits')
+	file = fits.open(datadir+'lris_esi_skyspec_fnu_uJy.fits')
 	header = file[0].header
 	f_nu = file[0].data
 	#grab data
@@ -62,10 +56,8 @@ def sky_mk(w):
 	f_nu = f_nu[0:len(ws)]
 	f_lam = f_nu*10**-29*3.0*10**18/ws**2
 	p_lam = f_lam/(2.*10**-8.0/ws)
-	#ps_int = np.interp(w,p_lam,ws)
 	psinterpol = interp1d(ws,p_lam,fill_value='extrapolate')
 	ps_int = psinterpol(w)
-	#print('skymk',ps_int)
 	return ps_int
 
 def get_params(w,grating):
@@ -113,7 +105,6 @@ def get_params(w,grating):
 	print(indexlt.shape,indexgt.shape)
 	index = np.concatenate((indexlt,indexgt))
 	print(index[0])
-	#index = [i for i,v in enumerate(w) if v < wave_range[0] or v > wave_range[1]]
 	if index[0] >= 0:
 		eff_int[index] = 0.0
 	print(eff_int[1500])
@@ -240,22 +231,8 @@ def do_calc(slicer,grating,gratwave,seeing,exptime,ccdbin,
 	print(type(nframes),type(read_noise),type(pixels_per_snr_specbin),type(pixels_spat_bin),type(bin_factor))
 	c_r = nframes*(read_noise**2)*pixels_per_snr_specbin*pixels_spat_bin*bin_factor
 	snr = c_o/np.sqrt(c_s+c_o+c_r)
-	#print('CO',c_o)
-	#print('CS',c_s)
 
-	#what is this?
-	#y0 = 0.1
-	#y1 = 0.9
-	#dy = (y1-y0)/6.
-	#dy = 0.8/6.
-	#chsz=1.
-
-	#output_file("KCWI_SNR.html")
-	#hover1 = HoverTool(tooltips=[("Wavelength",'@w'),("SNR",'@snr')])
-	#hover1.mode = 'mouse'
-	# source1 = ColumnDataSource(data=dict(Wavelength=w,SNR=snr))
-	# TOOLTIPS=[("(w,snr)","($w,$snr)")]
-
+	#Signal to Noise Ratio
 	p1 = figure(title='SNR',plot_width=350,plot_height=225,tools='hover')
 	p1.line(w,snr)
 	hover=p1.select(dict(type=HoverTool))
@@ -264,10 +241,8 @@ def do_calc(slicer,grating,gratwave,seeing,exptime,ccdbin,
 	p1.xaxis.axis_label='Wavelength (Å)'
 	p1.yaxis.axis_label='SNR / '+str(np.round(snr_spectral_bin,1))+' Å'
 	script_snr,div_snr = components(p1)
-	#snr = json.dumps(json_item(p1,"snr"))
-	#save(p1,filename="./plots/KCWI_SNR.html")
 
-	#output_file("KCWI_ObjCts.html")
+	#Object Counts
 	p2 = figure(title='SNR',plot_width=350,plot_height=225,tools='hover')
 	p2.line(w,c_o)
 	hover=p2.select(dict(type=HoverTool))
@@ -276,9 +251,8 @@ def do_calc(slicer,grating,gratwave,seeing,exptime,ccdbin,
 	p2.xaxis.axis_label='Wavelength (Å)'
 	p2.yaxis.axis_label='Object Counts / '+str(np.round(snr_spectral_bin,1))+' Å'
 	script_obj,div_obj = components(p2)
-	#save(p2,filename="./plots/KCWI_ObjCts.html")
 
-	#output_file("KCWI_SkyCts.html")
+	#Sky Counts
 	p3 = figure(title='SNR',plot_width=350,plot_height=225,tools='hover')
 	p3.line(w,c_s)
 	hover=p3.select(dict(type=HoverTool))
@@ -287,9 +261,8 @@ def do_calc(slicer,grating,gratwave,seeing,exptime,ccdbin,
 	p3.xaxis.axis_label='Wavelength (Å)'
 	p3.yaxis.axis_label='Sky Counts / '+str(np.round(snr_spectral_bin,1))+' Å'
 	script_sky,div_sky = components(p3)
-	#save(p3,filename="./plots/KCWI_SkyCts.html")
-
-	#output_file("KCWI_RNCts.html")
+	
+	#Read Noise Counts
 	p4 = figure(title='SNR',plot_width=350,plot_height=225,tools='hover')
 	p4.line(w,c_r*np.ones(len(w)))
 	hover=p4.select(dict(type=HoverTool))
@@ -298,9 +271,8 @@ def do_calc(slicer,grating,gratwave,seeing,exptime,ccdbin,
 	p4.xaxis.axis_label='Wavelength (Å)'
 	p4.yaxis.axis_label='Read Noise Counts / '+str(np.round(snr_spectral_bin,1))+' Å'
 	script_rn,div_rn = components(p4)
-	#save(p4,filename="./plots/KCWI_RNCts.html")
 
-	#output_file("KCWI_ObjdivSkyCts.html")
+	#Obj/Sky Counts
 	p5 = figure(title='SNR',plot_width=350,plot_height=225,tools='hover')
 	p5.line(w,c_o/c_s)
 	p5.add_tools(CrosshairTool())
@@ -309,9 +281,8 @@ def do_calc(slicer,grating,gratwave,seeing,exptime,ccdbin,
 	p5.xaxis.axis_label='Wavelength (Å)'
 	p5.yaxis.axis_label='Object Counts / Sky Counts'
 	script_os,div_os = components(p5)
-	#save(p5,filename="./plots/KCWI_ObjdivSkyCts.html")
-
-	#output_file("KCWI_Flux.html")
+	
+	#Flux
 	p6 = figure(title='SNR',plot_width=350,plot_height=225,tools='hover')
 	p6.line(w,pA)
 	hover=p6.select(dict(type=HoverTool))
@@ -320,7 +291,6 @@ def do_calc(slicer,grating,gratwave,seeing,exptime,ccdbin,
 	p6.xaxis.axis_label='Wavelength (Å)'
 	p6.yaxis.axis_label='Flux [ph cm^-2 s^-1 Å^-1]'
 	script_flux,div_flux = components(p6)
-	#save(p6,filename="./plots/KCWI_Flux.html")
 
 	return script_snr,div_snr,script_obj,div_obj,script_sky,div_sky,script_rn,div_rn,script_os,div_os,script_flux,div_flux
 
