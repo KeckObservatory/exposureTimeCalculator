@@ -11,7 +11,7 @@ Links
 Requirements
 ============
 
-This project is written in Python 3 and should be run with Python 3.5 or above.
+We recommend that this project should be run with Anaconda Python 3.5 or above.
 
 The current Python library requirements for this project are:
 
@@ -33,27 +33,11 @@ Navigate to the desired location on your computer and clone this repository by r
 
 	git clone https://github.com/KeckObservatory/exposureTimeCalculator.git
 
-The file structure will be as follows:
 
-	./exposureTimeCalculator/*.py
-				/static
-				/templates
-				/datafiles
-
-Edit line 27 of `etc.py` to change the port to an unoccupied value (if the default of 50008 is unoccupied, there's no need to change this unless you want to). Then edit line 52 of :code:`manager.py` to point to your local install of python3. The next commands are dependent on aliasing the local python3 executable to "python3". It can be substituted with the full path to that executable instead if desired.
-
-Afterwards, run the following command in the exposureTimeCalculator directory:
-
-	 python3 manager.py etc start
-
-You can also run the equivalent command:
+Edit line 27 of `etc.py` to change the port to an unoccupied value (if the default of 50008 is unoccupied, there's no need to change this unless you want to). Run the following command to start the ETC:
 
 	python3 etc.py
 
-(More details on the `manager.py` script are provided on the `Using the ETC` section.)
-
-This will start a webpage on your localhost at the specified port number.
-
-In your web browser, enter the following line in the URL bar (substitute new port number if you changed it earlier):
+This will start a webpage on your localhost at the specified port number. In your web browser, enter the following line in the URL bar (substitute new port number if you changed it earlier):
 
 	localhost:50008/etcgui/
