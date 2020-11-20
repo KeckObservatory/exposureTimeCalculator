@@ -13,7 +13,7 @@ def etc_gui():
     elif request.args:
         instr = request.args.get('instrument')
     #current instruments with exposure time calculators
-    allowed = ['','KCWI','NIRC2', 'NIRES']
+    allowed = ['','HIRES','KCWI','NIRC2', 'NIRES']
     #if instrument chosen, load exposure time calculator
     print(instr)
     if instr in allowed and instr != '':
