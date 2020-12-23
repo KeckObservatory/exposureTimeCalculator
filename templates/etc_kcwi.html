@@ -20,7 +20,7 @@
 		<!-- select instrument for database query -->
 		<select name="instrument">
 		{% for instr in allowed %}
-			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
+			<option value="{{instr}}" {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
 		{% endfor %}
 		</select>
 		<!-- initialize submit button to reload page -->
