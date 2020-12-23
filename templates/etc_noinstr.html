@@ -13,7 +13,7 @@
 		<!-- select instrument for database query -->
 		<select name="instrument">
 		{% for instr in ['','DEIMOS','ESI','HIRES','KCWI','LRIS','MOSFIRE','NIRC2','NIRES','NIRSPEC','OSIRIS'] %}
-			{% if instr == '' or instr in allowed %}
+			{% if instr in allowed %}
 			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
 			{% endif %}
 		{% endfor %}
