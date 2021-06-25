@@ -34,10 +34,10 @@ Navigate to the desired location on your computer and clone this repository by r
 	git clone https://github.com/KeckObservatory/exposureTimeCalculator.git
 
 
-Edit line 27 of `etc.py` to change the port to an unoccupied value (if the default of 50008 is unoccupied, there's no need to change this unless you want to). Run the following command to start the ETC:
+Edit line 27 of `etc.py` to change the port to an unoccupied value (if the default of 50009 is unoccupied, there's no need to change this unless you want to). Run the following command to start the ETC:
 
 	python3 etc.py
 
 This will start a webpage on your localhost at the specified port number. In your web browser, enter the following line in the URL bar (substitute new port number if you changed it earlier):
 
-	localhost:50008/etcgui/
+	localhost:50009/etcgui/
