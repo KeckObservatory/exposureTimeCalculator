@@ -1,0 +1,14 @@
+#
+###### Requirements without Version Specifiers ######
+astropy #== 3.2.3
+flask #== 1.1.2
+matplotlib #== 3.0.3
+numpy #== 1.18.5
+psutil #== 5.8.0
+pysynphot #== 1.0.1
+scipy #== 1.4.1
+
+#
+###### Requirements with Version Specifiers ######
+#   See https://www.python.org/dev/peps/pep-0440/#version-specifiers
+bokeh == 1.0.4
