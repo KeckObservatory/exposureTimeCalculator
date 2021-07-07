@@ -1,12 +1,14 @@
-# exposureTimeCalculator
+#### W.M. Keck Observatory
+# Exposure Time Calculator
 Links
 =====
 
-`Full Documentation <https://github.com/KeckObservatory/exposureTimeCalculator/blob/master/docs/Exposure%20Time%20Calculator%20Documentation.pdf>`
+[Exposure Time Calculator Documentation.pdf](https://github.com/KeckObservatory/exposureTimeCalculator/blob/master/docs/Exposure%20Time%20Calculator%20Documentation.pdf)
 
-`WMKO Exposure Time Calculator <https://www2.keck.hawaii.edu/inst/PILogin/etcgui/>`
+[WMKO Exposure Time Calculator](https://www2.keck.hawaii.edu/inst/PILogin/etcgui/)
 
-`exposureTimeCalculator GitHub Repository <https://github.com/KeckObservatory/exposureTimeCalculator>`
+exposureTimeCalculator GitHub Repository:
+`https://github.com/KeckObservatory/exposureTimeCalculator`
 
 Requirements
 ============
@@ -41,3 +43,22 @@ Edit line 27 of `etc.py` to change the port to an unoccupied value (if the defau
 This will start a webpage on your localhost at the specified port number. In your web browser, enter the following line in the URL bar (substitute new port number if you changed it earlier):
 
 	localhost:50009/etcgui/
+
+Alternatively, How to Run the ETC via Docker
+============================================
+
+Navigate to the desired location on your computer and clone this repository by running the command:
+
+	git clone https://github.com/KeckObservatory/exposureTimeCalculator.git
+
+Build the docker image:
+
+	docker build -t wmko-etc .
+
+This will start a webpage on your localhost at the specified port number. In your web browser, enter the following line in the URL bar (substitute new port number if you changed it earlier):
+
+	docker run -it --rm --name wmko-etc -p 80:50009 wmko-etc
+
+This will start a webpage on your localhost. In your web browser, enter the following line in the URL bar:
+
+	localhost/etcgui/
