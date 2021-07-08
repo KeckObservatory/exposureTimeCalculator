@@ -14,7 +14,7 @@
 		<!-- select instrument for database query -->
 		<select name="instrument">
 		{% for instr in allowed %}
-			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
+			<option value="{{instr}}" {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
 		{% endfor %}
 		</select>
 		<!-- initialize submit button to reload page -->
@@ -30,41 +30,41 @@
 			<th> Object </th>
 		</tr>
 		<tr>
-			<td>Exposure Time (sec)<br><input name='exptime' id='exptime' value={{exptime}}></td>
-			<td>Magnitude<br><input name='magnitude' id='magnitude' value={{magnitude}}></td>
+			<td>Exposure Time (sec)<br><input name='exptime' id='exptime' value="{{exptime}}"></td>
+			<td>Magnitude<br><input name='magnitude' id='magnitude' value="{{magnitude}}"></td>
 			</td>
 		</tr>
 		<tr>
-			<td>Coadds<br><input name='coadds' id='coadds' value={{coadds}}></td>
+			<td>Coadds<br><input name='coadds' id='coadds' value="{{coadds}}"></td>
 			<td>Source<br><select name="src_type">
 			{% for srcparam in ["Point Source", 'QSO', 'Seyfert1', 'Seyfert2', 'BlackBody'] %}
-			<option value={{srcparam}} {% if srcparam == src_type %} selected {% endif %}>{{srcparam}}</option>
+			<option value="{{srcparam}}" {% if srcparam == src_type %} selected {% endif %}>{{srcparam}}</option>
 			{% endfor %}
 			</select></td>
 		</tr>
 		<tr><td>Dither Pattern<br>
 			<select name="dither">
 			{% for dparam in ['AB','ABBA'] %}
-			<option value={{dparam}} {% if dparam == dither %} selected {% endif %}>{{dparam}}</option>
+			<option value="{{dparam}}" {% if dparam == dither %} selected {% endif %}>{{dparam}}</option>
 			{% endfor %}
 			</select>
-			<td>Redshift<br><input name='redshift' id='redshift' value={{redshift}}></td>
+			<td>Redshift<br><input name='redshift' id='redshift' value="{{redshift}}"></td>
 		</tr>
 		<tr>
-			<td>Repeats per Dither<br><input name='rpd' id='rpd' value={{rpd}}></td>
-			<td>Effective Temperature (K)<br><input name='teff' id='teff' value={{teff}}></td>
+			<td>Repeats per Dither<br><input name='rpd' id='rpd' value="{{rpd}}"></td>
+			<td>Effective Temperature (K)<br><input name='teff' id='teff' value="{{teff}}"></td>
 		</tr>
 		<tr>
-			<td># Reads<br><input name='nreads' id='nreads' value={{nreads}}></td>
-			<td>Obs Wave (&#956;m)<br><input name='obswave' id='obswave' value={{obswave}}></td>
+			<td># Reads<br><input name='nreads' id='nreads' value="{{nreads}}"></td>
+			<td>Obs Wave (&#956;m)<br><input name='obswave' id='obswave' value="{{obswave}}"></td>
 		</tr>
 		<tr>
-			<td>Seeing (arcsec)<br><input name='seeing' id='seeing' value={{seeing}}></td>
+			<td>Seeing (arcsec)<br><input name='seeing' id='seeing' value="{{seeing}}"></td>
 			<td></td>
 	</table>
 
 	<input type="submit" name="calculate" id="calculate" value="Calculate">
-	<input type="hidden" name="instrument" id="instrument" value={{instrument}}>
+	<input type="hidden" name="instrument" id="instrument" value="{{instrument}}">
 	<input type="hidden" name="action" id="action" value="Calculate">
 	</form>
 	</td>
