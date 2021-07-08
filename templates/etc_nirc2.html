@@ -5,6 +5,13 @@
     <title>WMKO Exposure Time Calculator</title>
 	<!-- reference CSS -->
     <style type='text/css'>{{get_resource_as_string('./static/etc.css')}}</style>
+
+	<script>
+		function manage(txt) {
+			var bt = document.getElementById('calculate');
+			bt.style.display = "none";
+		}
+	</script>
   </head>
   <body>
         <!-- print webpage header -->
@@ -15,7 +22,7 @@
 		<!-- select instrument for database query -->
 		<select name="instrument">
 		{% for instr in allowed %}
-			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
+			<option value="{{instr}}" {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
 		{% endfor %}
 		</select>
 		<!-- initialize submit button to reload page -->
@@ -28,7 +35,7 @@
 	<table align="top left" style='margin:15px;'>
 		<tr>
 			<td style='font-weight:bold'> Magnitude </td>
-			<td><input name='magnitude' id='magnitude' value={{magnitude}}></td>
+			<td><input name='magnitude' id='magnitude' value="{{magnitude}}"></td>
 			<td style='font-weight:bold'> Camera </td>
 			<td>
 				<input type='radio' name='camera' id='camera' value='Narrow' 
@@ -39,7 +46,7 @@
 		</tr>
 		<tr>
 			<td style='font-weight:bold'> Time per Exposure </td>
-			<td><input name='tpe' id='tpe' value={{tpe}}></td>
+			<td><input name='tpe' id='tpe' value="{{tpe}}"></td>
 			<td style='font-weight:bold'> Filter </td>
 			<td>
 				<input type='radio' name='filter' id='filter' value='J' {% if filter == 'J' %} checked {% endif %}>J
@@ -52,7 +59,7 @@
 		</tr>
 		<tr>
 			<td style='font-weight:bold'> Coadds </td>
-			<td><input name='coadds' id='coadds' value={{coadds}}></td>
+			<td><input name='coadds' id='coadds' value="{{coadds}}"></td>
 			<td style='font-weight:bold'> # Reads </td>
 			<td>
 				<input type='radio' name='nreads' id='nreads' value=2 {% if nreads == 2 %} checked {% endif %}>2 (CDS)
@@ -65,7 +72,7 @@
 		</tr>
 		<tr>
 			<td style='font-weight:bold'> # Dithers </td>
-			<td><input name='ndithers' id='ndithers' value={{ndithers}}></td>
+			<td><input name='ndithers' id='ndithers' value="{{ndithers}}"></td>
 			<td style='font-weight:bold'> Array Window Size </td>
 			<td>
 				<input type='radio' name='window' id='window' value=1024 {% if window == 1024 %} checked {% endif %}>1024&sup2;
@@ -75,7 +82,7 @@
 		</tr>
 		<tr>
 			<td style='font-weight:bold'> Repeats per Dither </td>
-			<td><input name='rpd' id='rpd' value={{rpd}}></td>
+			<td><input name='rpd' id='rpd' value="{{rpd}}"></td>
 			<td style='font-weight:bold'> AO Mode </td>
 			<td>
 				<input type='radio' name='ao' id='ao' value='LGS' {% if ao == 'LGS' %} checked {% endif %}>LGS
@@ -84,7 +91,7 @@
 		</tr>
 		<tr>
 			<td style='font-weight:bold'> Strehl </td>
-			<td><input name='strehl' id='strehl' value={{strehl}}></td>
+			<td><input name='strehl' id='strehl' value="{{strehl}}"></td>
 			<td style='font-weight:bold'> Laser Motion Control </td>
 			<td>
 				<input type='radio' name='laser' id='laser' value='Fixed to Center'
@@ -95,10 +102,10 @@
 		</tr>
 	</table>
 
-	<input type="submit" name="calculate" id="calculate" value="Calculate">
-	<input type="hidden" name="instrument" id="instrument" value={{instrument}}>
+	<input type="submit" name="calculate" id="calculate" value="Calculate" onclick="manage(this)">
+	<input type="hidden" name="instrument" id="instrument" value="{{instrument}}">
 	<input type="hidden" name="action" id="action" value="Calculate">
-	</form>
+
 	</td>
 	{% if calculate %}
 		<td style='background:rgba(255,255,255,0.3)'>
@@ -139,7 +146,7 @@
 		</td>
 	{% endif %}
 	</tr></table>
-
+	</form>
 	
   </body>
 </html>

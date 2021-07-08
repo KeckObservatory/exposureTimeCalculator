@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>  
+<html lang="en">  
   <head>
     <title>WMKO Exposure Time Calculator</title>
     <style type='text/css'>{{get_resource_as_string('./static/etc.css')}}</style>
@@ -13,8 +13,8 @@
 		<!-- select instrument for database query -->
 		<select name="instrument">
 		{% for instr in ['','DEIMOS','ESI','HIRES','KCWI','LRIS','MOSFIRE','NIRC2','NIRES','NIRSPEC','OSIRIS'] %}
-			{% if instr == '' or instr in allowed %}
-			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
+			{% if instr in allowed %}
+			<option value="{{instr}}" {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
 			{% endif %}
 		{% endfor %}
 		</select>

@@ -12,7 +12,7 @@
 		<!-- select instrument for database query -->
 		<select name="instrument">
 		{% for instr in ['','DEIMOS','ESI','HIRES','KCWI','LRIS','MOSFIRE','NIRC2','NIRES','NIRSPEC','OSIRIS'] %}
-			<option value={{instr}} {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
+			<option value="{{instr}}" {% if instr == instrument %} selected {% endif %}>{{instr}}</option>
 		{% endfor %}
 		</select>
 		<!-- initialize submit button to reload page -->
@@ -32,24 +32,24 @@
 		<tr>
 			<td>Slit Width<br><select name="slitwidth">
 			{% for slitparam in ['1.15 arcsec C5','0.40 arcsec E4','0.57 arcsec B2','0.86 arcsec B5','0.80 arcsec E5','1.72 arcsec D3'] %}
-			<option value={{slitparam}} {% if slitparam == slitwidth %} selected {% endif %}>{{slitparam}}</option>
+			<option value="{{slitparam}}" {% if slitparam == slitwidth %} selected {% endif %}>{{slitparam}}</option>
 			{% endfor %}
 			</select></td>
 			<td>Binning (Spatial x Spectral)<br><select name="binning">
 			{% for binparam in ['1x1 pixels','2x1 pixels','2x2 pixels','3x1 pixels'] %}
-			<option value={{binparam}} {% if binparam == binning %} selected {% endif %}>{{binparam}}</option>
+			<option value="{{binparam}}" {% if binparam == binning %} selected {% endif %}>{{binparam}}</option>
 			{% endfor %}
 			</select></td>
-			<td>Exposure Time (sec)<br><input name='exptime' id='exptime' value={{exptime}}></td>
-			<td>Magnitude<br><input name='magnitude' id='magnitude' value={{magnitude}}>
+			<td>Exposure Time (sec)<br><input name='exptime' id='exptime' value="{{exptime}}"></td>
+			<td>Magnitude<br><input name='magnitude' id='magnitude' value="{{magnitude}}">
 			<select name="ffilter">
 			{% for fparam in ['r','g','i','u','z','B','V','R','I'] %}
-			<option value={{fparam}} {% if fparam == ffilter %} selected {% endif %}>{{fparam}}</option>
+			<option value="{{fparam}}" {% if fparam == ffilter %} selected {% endif %}>{{fparam}}</option>
 			{% endfor %}
 			</select>
 			<select name="mtype">
 			{% for mparam in ['AB','Vega'] %}
-			<option value={{mparam}} {% if mparam == mtype %} selected {% endif %}>{{mparam}}</option>
+			<option value="{{mparam}}" {% if mparam == mtype %} selected {% endif %}>{{mparam}}</option>
 			{% endfor %}
 			</select>
 			</td>
@@ -57,24 +57,24 @@
 		<tr>
 			<td></td>
 			<td></td>
-			<td>Seeing (arcsec)<br><input name='seeing' id='seeing' value={{seeing}}></td>
+			<td>Seeing (arcsec)<br><input name='seeing' id='seeing' value="{{seeing}}"></td>
 			<td>Template<br><select name="template">
 			{% for tempparam in ['A0V','A5V','B5V','E','F5V','flat','G5V','K0V','K5V','M5V','O5V','Orion',
 			'PNe','QSO','S0','Sa','Sb','Sc','SNe Type 1a 10 days','starburst1'] %}
-			<option value={{tempparam}} {% if tempparam == template %} selected {% endif %}>{{tempparam}}</option>
+			<option value="{{tempparam}}" {% if tempparam == template %} selected {% endif %}>{{tempparam}}</option>
 			{% endfor %}
 			</select></td>
 		</tr>
 		<tr>
 			<td></td>
 			<td></td>
-			<td>Airmass<br><input name='airmass' id='airmass' value={{airmass}}></td>
-			<td>Redshift<br><input name='redshift' id='redshift' value={{redshift}}></td>
+			<td>Airmass<br><input name='airmass' id='airmass' value="{{airmass}}"></td>
+			<td>Redshift<br><input name='redshift' id='redshift' value="{{redshift}}"></td>
 		</tr>
 	</table>
 
 	<input type="submit" name="calculate" id="calculate" value="Calculate">
-	<input type="hidden" name="instrument" id="instrument" value={{instrument}}>
+	<input type="hidden" name="instrument" id="instrument" value="{{instrument}}">
 	<input type="hidden" name="action" id="action" value="Calculate">
 	</form>
 	</td>
