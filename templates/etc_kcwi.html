@@ -11,6 +11,13 @@
 	rel="stylesheet" type="text/css">
 	<script src="https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.js"></script>
 	<script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.4.min.js"></script>
+
+	<script>
+		function manage(txt) {
+			var bt = document.getElementById('calculate');
+			bt.style.display = "none";
+		}
+	</script>
   </head>
   <body>
         <!-- print webpage header -->
@@ -85,7 +92,7 @@
 			
 	</table>
 
-	<input type="submit" name="calculate" id="calculate" value="Calculate">
+	<input type="submit" name="calculate" id="calculate" value="Calculate" onclick="manage(this)">
 	<input type="hidden" name="instrument" id="instrument" value="{{instrument}}">
 	<input type="hidden" name="action" id="action" value="Calculate">
 	

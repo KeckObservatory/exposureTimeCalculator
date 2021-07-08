@@ -5,6 +5,13 @@
     <title>WMKO Exposure Time Calculator</title>
 	<!-- reference CSS -->
     <style type='text/css'>{{get_resource_as_string('./static/etc.css')}}</style>
+
+	<script>
+		function manage(txt) {
+			var bt = document.getElementById('calculate');
+			bt.style.display = "none";
+		}
+	</script>
   </head>
   <body>
         <!-- print webpage header -->
@@ -95,10 +102,10 @@
 		</tr>
 	</table>
 
-	<input type="submit" name="calculate" id="calculate" value="Calculate">
+	<input type="submit" name="calculate" id="calculate" value="Calculate" onclick="manage(this)">
 	<input type="hidden" name="instrument" id="instrument" value="{{instrument}}">
 	<input type="hidden" name="action" id="action" value="Calculate">
-	</form>
+
 	</td>
 	{% if calculate %}
 		<td style='background:rgba(255,255,255,0.3)'>
@@ -139,7 +146,7 @@
 		</td>
 	{% endif %}
 	</tr></table>
-
+	</form>
 	
   </body>
 </html>
