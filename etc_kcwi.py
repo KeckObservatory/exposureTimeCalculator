@@ -138,7 +138,7 @@ def do_calc(slicer,grating,gratwave,seeing,exptime,ccdbin,
 		pixels_spectral = 8
 		arcsec_per_slice = 1.35
 	elif slicer == 'Medium':
-		seeing2 = np.max([0.69,seeing])
+		seeing2 = np.max(0.69,seeing)
 		snr_spatial_bin = seeing1*seeing2
 		pixels_spectral = 4
 		arcsec_per_slice = 0.69
