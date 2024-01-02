@@ -3,7 +3,7 @@ bokeh==1.0.4
 certifi==2020.6.20
 click==7.1.2
 ddoitranslatormodule==0.1
-Flask==1.1.4
+Flask==2.2.5
 itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1
