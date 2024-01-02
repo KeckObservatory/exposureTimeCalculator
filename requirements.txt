@@ -16,4 +16,4 @@ PyYAML==5.3.1
 scipy==1.4.1
 six==1.16.0
 tornado==6.1
-Werkzeug==1.0.1
+Werkzeug==2.3.8
