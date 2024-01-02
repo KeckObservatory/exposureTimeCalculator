@@ -26,6 +26,20 @@ The current Python library requirements for this project are:
 	pysynphot
 	scipy
 
+Install Python ENV
+==================
+It is good to create a new environent called kecketc. If using conda create an environment with the following command. 
+
+	conda create --name kecketc python=3.5
+
+ Activate environment with
+
+ 	conda activate kecketc
+
+  Next install requirements with pip.
+
+	pip install -r requirements.txt
+
 How to Download and Run the ETC
 ===============================
 
